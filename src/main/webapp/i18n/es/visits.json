@@ -1,0 +1,26 @@
+{
+  "petclinicApp": {
+    "visits": {
+      "home": {
+        "title": "Visits",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Visits",
+        "createOrEditLabel": "Crear o editar Visits",
+        "notFound": "Ningún Visits encontrado"
+      },
+      "created": "Un nuevo Visits ha sido creado con el identificador {{ param }}",
+      "updated": "Un Visits ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Visits ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Visits {{ id }}?"
+      },
+      "detail": {
+        "title": "Visits"
+      },
+      "id": "ID",
+      "visitdate": "Visitdate",
+      "description": "Description",
+      "pet": "Pet"
+    }
+  }
+}

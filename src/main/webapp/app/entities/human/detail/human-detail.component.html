@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="human">
+      <h2 data-cy="humanDetailsHeading"><span jhiTranslate="petclinicApp.human.detail.title">Human</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ human.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.human.firstname">Firstname</span></dt>
+        <dd>
+          <span>{{ human.firstname }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.human.lastname">Lastname</span></dt>
+        <dd>
+          <span>{{ human.lastname }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.human.address">Address</span></dt>
+        <dd>
+          <span>{{ human.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.human.city">City</span></dt>
+        <dd>
+          <span>{{ human.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.human.telephone">Telephone</span></dt>
+        <dd>
+          <span>{{ human.telephone }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/human', human.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

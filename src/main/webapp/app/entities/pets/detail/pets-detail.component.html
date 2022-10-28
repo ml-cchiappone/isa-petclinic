@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pets">
+      <h2 data-cy="petsDetailsHeading"><span jhiTranslate="petclinicApp.pets.detail.title">Pets</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pets.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.pets.name">Name</span></dt>
+        <dd>
+          <span>{{ pets.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.pets.type">Type</span></dt>
+        <dd>
+          <div *ngIf="pets.type">
+            <a [routerLink]="['/types', pets.type.id, 'view']">{{ pets.type?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.pets.human">Human</span></dt>
+        <dd>
+          <div *ngIf="pets.human">
+            <a [routerLink]="['/human', pets.human.id, 'view']">{{ pets.human?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="petclinicApp.pets.vet">Vet</span></dt>
+        <dd>
+          <div *ngIf="pets.vet">
+            <a [routerLink]="['/vet', pets.vet.id, 'view']">{{ pets.vet?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pets', pets.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

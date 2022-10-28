@@ -1,0 +1,35 @@
+{
+  "applications": ["petclinic"],
+  "changelogDate": "20221028213817",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "vet",
+  "fields": [
+    {
+      "fieldName": "firstname",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    },
+    {
+      "fieldName": "lastname",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Vet",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "pets",
+      "otherEntityRelationshipName": "vet",
+      "relationshipName": "pets",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

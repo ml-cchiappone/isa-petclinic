@@ -1,0 +1,29 @@
+{
+  "petclinicApp": {
+    "human": {
+      "home": {
+        "title": "Humans",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Human",
+        "createOrEditLabel": "Create or edit a Human",
+        "notFound": "No Humans found"
+      },
+      "created": "A new Human is created with identifier {{ param }}",
+      "updated": "A Human is updated with identifier {{ param }}",
+      "deleted": "A Human is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Human {{ id }}?"
+      },
+      "detail": {
+        "title": "Human"
+      },
+      "id": "ID",
+      "firstname": "Firstname",
+      "lastname": "Lastname",
+      "address": "Address",
+      "city": "City",
+      "telephone": "Telephone",
+      "pets": "Pets"
+    }
+  }
+}

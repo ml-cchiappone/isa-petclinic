@@ -1,0 +1,84 @@
+<div>
+  <h2 id="page-heading" data-cy="HumanHeading">
+    <span jhiTranslate="petclinicApp.human.home.title">Humans</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="petclinicApp.human.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-human"
+        [routerLink]="['/human/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="petclinicApp.human.home.createLabel"> Crear nuevo Human </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="humans?.length === 0">
+    <span jhiTranslate="petclinicApp.human.home.notFound">Ningún Humans encontrado</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="humans && humans.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="firstname">
+            <span jhiTranslate="petclinicApp.human.firstname">Firstname</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastname">
+            <span jhiTranslate="petclinicApp.human.lastname">Lastname</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="address">
+            <span jhiTranslate="petclinicApp.human.address">Address</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="city"><span jhiTranslate="petclinicApp.human.city">City</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="telephone">
+            <span jhiTranslate="petclinicApp.human.telephone">Telephone</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let human of humans; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/human', human.id, 'view']">{{ human.id }}</a>
+          </td>
+          <td>{{ human.firstname }}</td>
+          <td>{{ human.lastname }}</td>
+          <td>{{ human.address }}</td>
+          <td>{{ human.city }}</td>
+          <td>{{ human.telephone }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/human', human.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/human', human.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(human)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-pets-heading" data-cy="PetsCreateUpdateHeading" jhiTranslate="petclinicApp.pets.home.createOrEditLabel">
+        Crear o editar Pets
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="petclinicApp.pets.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('name')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 32 }"
+            >
+              Este campo no puede superar más de 32 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="petclinicApp.pets.type" for="field_type">Type</label>
+          <select class="form-control" id="field_type" data-cy="type" name="type" formControlName="type" [compareWith]="compareTypes">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="typesOption" *ngFor="let typesOption of typesSharedCollection">{{ typesOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="petclinicApp.pets.human" for="field_human">Human</label>
+          <select class="form-control" id="field_human" data-cy="human" name="human" formControlName="human" [compareWith]="compareHuman">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="humanOption" *ngFor="let humanOption of humansSharedCollection">{{ humanOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="petclinicApp.pets.vet" for="field_vet">Vet</label>
+          <select class="form-control" id="field_vet" data-cy="vet" name="vet" formControlName="vet" [compareWith]="compareVet">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="vetOption" *ngFor="let vetOption of vetsSharedCollection">{{ vetOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

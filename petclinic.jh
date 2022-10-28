@@ -1,0 +1,66 @@
+application {
+    config {
+      baseName petclinic
+      applicationType monolith
+      packageName ar.edu.um.isa.petclinic
+      buildTool maven,
+      devDatabaseType mariadb,
+      prodDatabaseType mariadb,
+      authenticationType jwt,
+      testFrameworks [cypress],
+      clientTheme sketchy,
+      languages [es,en],
+      nativeLanguage es,
+      enableSwaggerCodegen true
+    }
+    entities *
+  }
+
+DEFAULT_MIN_LENGTH = 3
+DEFAULT_MAX_LENGTH = 32
+
+entity Vet {
+  firstname String required maxlength(DEFAULT_MAX_LENGTH)
+  lastname String required maxlength(DEFAULT_MAX_LENGTH)
+}
+
+entity Types {
+  name String required maxlength(80)
+}
+
+entity Human {
+  firstname String required maxlength(DEFAULT_MAX_LENGTH)
+  lastname String required maxlength(DEFAULT_MAX_LENGTH)
+  address String required maxlength(255)
+  city String maxlength(DEFAULT_MAX_LENGTH)
+  telephone String required maxlength(20)
+}
+
+entity Pets {
+  name String required maxlength(DEFAULT_MAX_LENGTH)
+}
+
+entity Visits {
+  visitdate Instant required
+  description String required maxlength(255)
+}
+
+relationship OneToMany {
+  Human to Pets{human},
+  Pets to Visits{pet}
+  Vet to Pets{vet}
+}
+
+relationship ManyToOne {
+  Pets{type} to Types
+}
+
+// Set pagination options.
+paginate Human, Pets with infinite-scroll
+paginate Vet, Types, Visits with pagination
+
+// Use a service layer with an interface for all entities.
+service all with serviceImpl
+
+// Use DTO's with the service layer with MapStruct.
+dto * with mapstruct

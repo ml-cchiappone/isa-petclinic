@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="PetsHeading">
+    <span jhiTranslate="petclinicApp.pets.home.title">Pets</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="petclinicApp.pets.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-pets"
+        [routerLink]="['/pets/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="petclinicApp.pets.home.createLabel"> Crear nuevo Pets </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pets?.length === 0">
+    <span jhiTranslate="petclinicApp.pets.home.notFound">Ningún Pets encontrado</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="pets && pets.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span jhiTranslate="petclinicApp.pets.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="type.id"><span jhiTranslate="petclinicApp.pets.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="human.id">
+            <span jhiTranslate="petclinicApp.pets.human">Human</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="vet.id"><span jhiTranslate="petclinicApp.pets.vet">Vet</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let pets of pets; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/pets', pets.id, 'view']">{{ pets.id }}</a>
+          </td>
+          <td>{{ pets.name }}</td>
+          <td>
+            <div *ngIf="pets.type">
+              <a [routerLink]="['/types', pets.type.id, 'view']">{{ pets.type?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="pets.human">
+              <a [routerLink]="['/human', pets.human.id, 'view']">{{ pets.human?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="pets.vet">
+              <a [routerLink]="['/vet', pets.vet.id, 'view']">{{ pets.vet?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/pets', pets.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/pets', pets.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(pets)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

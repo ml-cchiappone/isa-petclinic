@@ -1,0 +1,28 @@
+{
+  "petclinicApp": {
+    "pets": {
+      "home": {
+        "title": "Pets",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Pets",
+        "createOrEditLabel": "Crear o editar Pets",
+        "notFound": "Ningún Pets encontrado"
+      },
+      "created": "Un nuevo Pets ha sido creado con el identificador {{ param }}",
+      "updated": "Un Pets ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Pets ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Pets {{ id }}?"
+      },
+      "detail": {
+        "title": "Pets"
+      },
+      "id": "ID",
+      "name": "Name",
+      "visits": "Visits",
+      "type": "Type",
+      "human": "Human",
+      "vet": "Vet"
+    }
+  }
+}
