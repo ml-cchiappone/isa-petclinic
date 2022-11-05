@@ -22,6 +22,8 @@ node {
     }
 
     stage('npm install') {
+        sh "apt install chromium"
+        sh "apt install chromium-browser"
         sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm"
     }
     stage('backend tests') {
