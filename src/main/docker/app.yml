@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   petclinic-app:
-    image: petclinic
+    image: cchiappone/isapetclinic
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
@@ -14,6 +14,8 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 127.0.0.1:8080:8080
+    depends_on:
+      - petclinic-mariadb
   petclinic-mariadb:
     image: mariadb:10.8.3
     # volumes:

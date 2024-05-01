@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mariadb://pet-clinic-db:3306/petclinic?useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mariadb://localhost:3306/petclinic?useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password:
     hikari:
@@ -93,7 +93,7 @@ jhipster:
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://127.0.0.1:8080
   logging:
-    use-json-format: false # By default, logs are not in Json format
+    use-json-format: true # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
       enabled: false
       host: localhost
